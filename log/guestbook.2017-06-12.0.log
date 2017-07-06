@@ -1,0 +1,52 @@
+2017-06-12 13:40:24,598 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-12 13:40:27,379 [main] INFO  guestbook.env - 
+-=[guestbook started successfully using the development profile]=- 
+2017-06-12 13:40:27,826 [main] INFO  luminus.http-server - starting HTTP server on port 3000 
+2017-06-12 13:40:28,133 [main] INFO  org.xnio - XNIO version 3.3.6.Final 
+2017-06-12 13:40:28,852 [main] INFO  org.projectodd.wunderboss.web.Web - Registered web context / 
+2017-06-12 13:40:28,857 [main] INFO  luminus.repl-server - starting nREPL server on port 7000 
+2017-06-12 13:40:28,905 [main] INFO  guestbook.core - #'guestbook.config/env started 
+2017-06-12 13:40:28,906 [main] INFO  guestbook.core - #'guestbook.db.core/*db* started 
+2017-06-12 13:40:28,907 [main] INFO  guestbook.core - #'guestbook.handler/init-app started 
+2017-06-12 13:40:28,907 [main] INFO  guestbook.core - #'guestbook.core/http-server started 
+2017-06-12 13:40:28,908 [main] INFO  guestbook.core - #'guestbook.core/repl-server started 
+2017-06-12 13:43:08,179 [XNIO-1 task-10] INFO  guestbook.env - 
+-=[guestbook has shut down successfully]=- 
+2017-06-12 13:43:08,183 [XNIO-1 task-10] INFO  guestbook.env - 
+-=[guestbook started successfully using the development profile]=- 
+2017-06-12 13:44:00,354 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-12 13:45:25,814 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-12 13:55:07,016 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-12 13:55:09,375 [main] INFO  guestbook.env - 
+-=[guestbook started successfully using the development profile]=- 
+2017-06-12 13:55:09,680 [main] INFO  luminus.http-server - starting HTTP server on port 3000 
+2017-06-12 13:55:09,880 [main] INFO  org.xnio - XNIO version 3.3.6.Final 
+2017-06-12 13:55:10,231 [main] INFO  org.projectodd.wunderboss.web.Web - Registered web context / 
+2017-06-12 13:55:10,235 [main] INFO  luminus.repl-server - starting nREPL server on port 7000 
+2017-06-12 13:55:10,279 [main] INFO  guestbook.core - #'guestbook.config/env started 
+2017-06-12 13:55:10,280 [main] INFO  guestbook.core - #'guestbook.db.core/*db* started 
+2017-06-12 13:55:10,281 [main] INFO  guestbook.core - #'guestbook.handler/init-app started 
+2017-06-12 13:55:10,281 [main] INFO  guestbook.core - #'guestbook.core/http-server started 
+2017-06-12 13:55:10,282 [main] INFO  guestbook.core - #'guestbook.core/repl-server started 
+2017-06-12 14:00:06,432 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-12 14:00:08,740 [main] INFO  guestbook.env - 
+-=[guestbook started successfully using the development profile]=- 
+2017-06-12 14:00:09,056 [main] INFO  luminus.http-server - starting HTTP server on port 3000 
+2017-06-12 14:00:09,283 [main] INFO  org.xnio - XNIO version 3.3.6.Final 
+2017-06-12 14:00:09,621 [main] INFO  org.projectodd.wunderboss.web.Web - Registered web context / 
+2017-06-12 14:00:09,625 [main] INFO  luminus.repl-server - starting nREPL server on port 7000 
+2017-06-12 14:00:09,713 [main] INFO  guestbook.core - #'guestbook.config/env started 
+2017-06-12 14:00:09,714 [main] INFO  guestbook.core - #'guestbook.db.core/*db* started 
+2017-06-12 14:00:09,715 [main] INFO  guestbook.core - #'guestbook.handler/init-app started 
+2017-06-12 14:00:09,715 [main] INFO  guestbook.core - #'guestbook.core/http-server started 
+2017-06-12 14:00:09,716 [main] INFO  guestbook.core - #'guestbook.core/repl-server started 
+2017-06-12 16:26:19,682 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h22m40s489ms955µs395ns). 
+2017-06-12 16:26:19,711 [Thread-4] INFO  luminus.repl-server - nREPL server stopped 
+2017-06-12 16:26:19,739 [Thread-4] DEBUG org.projectodd.wunderboss.WunderBoss - Returning existing component for org.projectodd.wunderboss.web.Web:-1645144552, ignoring options. 
+2017-06-12 16:26:19,765 [Thread-4] INFO  luminus.http-server - HTTP server stopped 
+2017-06-12 16:26:19,767 [Thread-4] INFO  guestbook.env - 
+-=[guestbook has shut down successfully]=- 
+2017-06-12 16:26:19,777 [Thread-4] INFO  guestbook.core - #'guestbook.core/repl-server stopped 
+2017-06-12 16:26:19,778 [Thread-4] INFO  guestbook.core - #'guestbook.core/http-server stopped 
+2017-06-12 16:26:19,779 [Thread-4] INFO  guestbook.core - #'guestbook.handler/init-app stopped 
+2017-06-12 16:26:19,780 [Thread-4] INFO  guestbook.core - #'guestbook.db.core/*db* stopped 

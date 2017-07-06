@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: separate;
+        width: 200%;
+    }
+
+    .single-message{
+        padding: 10px 0px 15px 0px;
+        font-size: 20px;
+    }
+    .Name{
+        font-weight: bold;
+    }
+    td,th {
+        border: 3px solid #dddddd;
+        text-align:  left;
+        padding:  8px;
+    }
+    .button {
+    background-color: #008CBA; /* Blue */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 8px;
+    }
+
+    .edit {
+    background-color: #008CBA; /* Blue */
+    border: none;
+    color: white;
+    padding: 0.01px  3px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 9px;
+    border-radius: 8px;
+    }
+    .msg{
+        padding: 0cm 0cm 0cm 1.5cm;
+    }
+</style>
+    {{hash}}
+    <div class="jumbotron"> <h4> Messages left: </h4> </div>
+    {% for m in messages %}
+    {{m.hash}}
+    <div class="single-message">
+        <img height = "50" width = "50" src = "https://www.gravatar.com/avatar/{{m.hash}}" />  
+         <b>{{m.name}}: </b> <br>
+        <p class = "msg">{{m.message}} {% ifequal m.check test %} <a href= "http://localhost:3000/messages/{{m.id}} " class="edit"> EDIT </a> {% endifequal %} </p>    
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,28 @@
+2017-06-06 15:10:48,572 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-06 15:10:51,249 [main] INFO  migratus.core - Starting migrations 
+2017-06-06 15:10:51,857 [main] INFO  migratus.database - creating migration table 'schema_migrations' 
+2017-06-06 15:10:51,922 [main] DEBUG migratus.migrations - Looking for migrations in in  #object[java.io.File 0x75a37ebb /home/wsecond/Ionut/clojure/guestbook/resources/migrations] 
+2017-06-06 15:10:51,960 [main] INFO  migratus.core - Running up for [20170606150722] 
+2017-06-06 15:10:51,962 [main] INFO  migratus.core - Up 20170606150722-add-users-table 
+2017-06-06 15:10:52,002 [main] DEBUG migratus.migration.sql - found 1 up migrations 
+2017-06-06 15:10:52,057 [main] DEBUG migratus.database - marking 20170606150722 complete 
+2017-06-06 15:10:52,079 [main] INFO  migratus.core - Ending migrations 
+2017-06-06 15:17:47,103 [main] DEBUG org.jboss.logging - Logging Provider: org.jboss.logging.Slf4jLoggerProvider 
+2017-06-06 15:17:49,842 [main] INFO  guestbook.env - 
+-=[guestbook started successfully using the development profile]=- 
+2017-06-06 15:17:50,223 [main] INFO  luminus.http-server - starting HTTP server on port 3000 
+2017-06-06 15:17:50,430 [main] INFO  org.xnio - XNIO version 3.3.6.Final 
+2017-06-06 15:17:51,090 [main] INFO  org.projectodd.wunderboss.web.Web - Registered web context / 
+2017-06-06 15:17:51,093 [main] INFO  luminus.repl-server - starting nREPL server on port 7000 
+2017-06-06 15:17:51,150 [main] INFO  guestbook.core - #'guestbook.config/env started 
+2017-06-06 15:17:51,154 [main] INFO  guestbook.core - #'guestbook.handler/init-app started 
+2017-06-06 15:17:51,155 [main] INFO  guestbook.core - #'guestbook.core/http-server started 
+2017-06-06 15:17:51,155 [main] INFO  guestbook.core - #'guestbook.core/repl-server started 
+2017-06-06 16:29:46,195 [Thread-2] INFO  luminus.repl-server - nREPL server stopped 
+2017-06-06 16:29:46,199 [Thread-2] DEBUG org.projectodd.wunderboss.WunderBoss - Returning existing component for org.projectodd.wunderboss.web.Web:-1645144552, ignoring options. 
+2017-06-06 16:29:46,220 [Thread-2] INFO  luminus.http-server - HTTP server stopped 
+2017-06-06 16:29:46,222 [Thread-2] INFO  guestbook.env - 
+-=[guestbook has shut down successfully]=- 
+2017-06-06 16:29:46,226 [Thread-2] INFO  guestbook.core - #'guestbook.core/repl-server stopped 
+2017-06-06 16:29:46,227 [Thread-2] INFO  guestbook.core - #'guestbook.core/http-server stopped 
+2017-06-06 16:29:46,227 [Thread-2] INFO  guestbook.core - #'guestbook.handler/init-app stopped 

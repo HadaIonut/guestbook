@@ -1,0 +1,26 @@
+<title> Message editor </title>
+{% extends "base.html" %}
+{% block content %}
+
+    <form method="POST" action="/login">
+        <div class = "jumbotron">
+            <h3> Create your new account <h3> </div>
+            {% csrf-field %}
+        <input class = "form-control"
+               type = "text"
+               name = "User"
+               value = "Username "/>
+        <br>
+        <input class = "form-control"
+               type = "text"
+               name = "email"
+               value = "Email Adress" />
+        <br> 
+        <input class = "form-control"
+               type = "text"
+               name = "Pass"
+               value = "Password "/>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Register" />
+    </form>
+{% endblock %}
