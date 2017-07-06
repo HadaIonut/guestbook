@@ -1,16 +1,17 @@
 (ns guestbook.db.core
-  (:require 
+  (:require
     [korma.db :as db]
     [korma.core :refer :all :rename {update sql-update}]
     [clj-time.jdbc]
     [conman.core :as conman]
     [mount.core :refer [defstate]]
+    [environ.core :as envi]
     [guestbook.config :refer [env]]))
 
-(def debe 
+(def debe
   (db/create-db
     (db/mysql {:db "ionut"
-            :user "root"
+            :user (envi :db-user)
             :password "whitecityromania"
             :host "172.17.0.3"
             :port "3306"})))
@@ -20,7 +21,7 @@
 (defentity BIGBOI)
 
 (select BIGBOI)
-  
+
 (defn get-messages [] println "test")
 (defn save-message [{:keys [message]}]
   (insert BIGBOI (values [{:name message}]))
