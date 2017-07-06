@@ -3,11 +3,15 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
 
-  :dependencies [[clj-time "0.13.0"]
+  :dependencies [[buddy/buddy-auth "1.4.1"]
+                 [buddy "1.3.0"]
+                 [clj-time "0.13.0"]
                  [com.h2database/h2 "1.4.193"]
                  [compojure "1.6.0"]
                  [conman "0.6.4"]
                  [cprop "0.1.10"]
+                 [digest "1.4.5"]
+                 [environ "1.1.0"]
                  [funcool/struct "1.0.0"]
                  [luminus-immutant "0.2.3"]
                  [luminus-migrations "0.3.5"]
@@ -30,10 +34,7 @@
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.6.1"]
                  [ring/ring-defaults "0.3.0"]
-                 [selmer "1.10.7"]
-                 [buddy/buddy-auth "1.4.1"]
-                 [buddy "1.3.0"]
-                 [digest "1.4.5"]]
+                 [selmer "1.10.7"]]
 
   :min-lein-version "2.0.0"
 
