@@ -1,0 +1,22 @@
+<title> Message editor </title>
+{% extends "base.html" %}
+{% block content %}
+
+    <form method="POST" action="/Logged">
+        <div class = "jumbotron">
+            <h3> Log in to your account <h3> </div>
+                    {% csrf-field %}
+        <input class = "form-control"
+                            type = "text"
+                            name = "LoginUser"
+                            value = "Username "/>
+                            <br> 
+        <input class = "form-control"
+                            type = "text"
+                            name = "LoginPass"
+                            value = "Password "/>
+                            <br>
+        <input type="submit" class="btn btn-primary" value="Log in" />
+        <a href = "http://localhost:3000/register"> Do you need an account? </a>
+    </form>
+{% endblock %}
