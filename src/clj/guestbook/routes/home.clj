@@ -15,13 +15,13 @@
             [compojure.core :refer [defroutes GET POST]]
             [struct.core :as st]))
 
-(def debe 
+(def debe
   (db/create-db
     (db/mysql {:db "ionut"
-            :user "root"
-            :password "whitecityromania"
-            :host "172.17.0.3"
-            :port "3306"})))
+               :user "root"
+               :password "whitecityromania"
+               :host "172.17.0.3"
+               :port "3306"})))
 
 (db/default-connection debe)
 
@@ -35,96 +35,100 @@
 (def backend (backends/jws {:secret secret}))
 
 (defn get-connection [LoginUser] (println "Workingggg")
-    (select Users
-        (fields :Username :Email)
-        (where {:Username LoginUser})))
+  (select Users
+          (fields :Username :Email)
+          (where {:Username LoginUser})))
 
-(defn login-handler 
-    [request LoginUser LoginPass] 
-    (let [data (:form-params request)
-          user (select Users 
-                (fields :id)
-                (where {:Username LoginUser :Password LoginPass}))
-          token (jwt/sign {:user (:id user)} secret)] (println request)
-     {:status 200
-      :body (json/encode {:token token})
-      :headers {:content-type "application/json"}})
-      (selmer.parser/render-file "logged.html" {:connected (get-connection LoginUser)}))
+(defn login-handler
+  [request LoginUser LoginPass]
+  (let [data (:form-params request)
+        user (select Users
+                     (fields :id)
+                     (where {:Username LoginUser :Password LoginPass}))
+        token (jwt/sign {:user (:id user)} secret)] (println request)
+    {:status 200
+     :body (json/encode {:token token})
+     :headers {:content-type "application/json"}})
+  (selmer.parser/render-file "logged.html"
+                             {:connected (get-connection LoginUser)}))
 
-(defn home-page [& [name message errors]] 
+(defn home-page [& [name message errors]]
   (layout/render
-   "home.html"
-   (merge {:name name
-           :message message})))
+    "home.html"
+    (merge {:name name
+            :message message})))
 
 (defn save-message [name message]
-    (insert BIGBOI (values {:name name :message message}))
-    (home-page))  
+  (insert BIGBOI (values {:name name :message message}))
+  (home-page))
 
 (defn get-messages []
   (select BIGBOI
-    (fields :name :message :id :hash)))
+          (fields :name :message :id :hash)))
 
 (defn selector [id]
   (select BIGBOI
-    (fields :message :id)
-    (where {:id id}))
-)
+          (fields :message :id)
+          (where {:id id}))
+  )
 
 (defn registerUser [User email Pass]
-    
-    (let [users (select Users (fields :Username) (where {:Username User}))
-          exists? (empty? users)]
-    (if exists? (insert Users (values {:Username User :Password Pass :Email email})))
+
+  (let [users (select Users (fields :Username) (where {:Username User}))
+        exists? (empty? users)]
+    (if exists? (insert Users
+                        (values {:Username User
+                                 :Password Pass
+                                 :Email email})))
 
     (selmer.parser/render-file "login.html" {:test "test"})
-))
+    ))
 
 
 
 (defn login-page []
-    (selmer.parser/render-file "login.html" {:test "test"}))
+  (selmer.parser/render-file "login.html" {:test "test"}))
 
 (defn register-page []
-    (selmer.parser/render-file "register.html" {:test "test"}))
+  (selmer.parser/render-file "register.html" {:test "test"}))
 
 (defn message-page [& hashed]
-   (selmer.parser/render-file "messages.html" {:messages (get-messages) :hash hashed})  
-) 
+  (selmer.parser/render-file "messages.html" {:messages (get-messages)
+                                              :hash hashed}))
 
 (defn edit-page [id]
-    (selmer.parser/render-file "edit.html" {:make (selector id)})
-)
+  (selmer.parser/render-file "edit.html" {:make (selector id)}))
 
 (defn save-msg [request Name Email Message] (println request)
-    (let [hashed (dig/md5(string/lower-case(string/trim Email)))]
+  (let [hashed (dig/md5(string/lower-case(string/trim Email)))]
     (insert BIGBOI (values {:name Name :message Message :hash hashed}))
     (message-page hashed)))
 
 (defn editing [id update]
-    
-    (sql-update BIGBOI
-      (set-fields {:message update})
-      (where {:id id}))
-      
-    (selmer.parser/render-file "edit.html" {:make (selector id)}))
+
+  (sql-update BIGBOI
+              (set-fields {:message update})
+              (where {:id id}))
+
+  (selmer.parser/render-file "edit.html" {:make (selector id)}))
 
 (defn get-id []
   (select BIGBOI
-    (fields :id)))
-    
+          (fields :id)))
+
 (defroutes home-routes
-   (GET "/" [] (home-page))
-   (POST "/" [name message] (save-message name message))
-   (GET "/messages" [] (message-page))
-   ;(GET "/vlad/:id" [{:keys [id] :as request}] (str "Uite requestul tau: "))
-   (GET "/messages/:id" [id] (edit-page id))
-   (POST "/messages/:id" [id update] (editing id update))
-   (GET "/login" [] (login-page))
-   (GET "/register" [] (register-page))
-   (POST "/Logged" [request LoginUser LoginPass] (login-handler request LoginUser LoginPass))
-   (POST "/login" [User email Pass] (registerUser User email Pass))
-   (POST "/messages" [request Name Email Message] (save-msg request Name Email Message))
-)
-   
+  (GET "/" [] (home-page))
+  (POST "/" [name message] (save-message name message))
+  (GET "/messages" [] (message-page))
+  (GET "/messages/:id" [id] (edit-page id))
+  (POST "/messages/:id" [id update] (editing id update))
+  (GET "/login" [] (login-page))
+  (GET "/register" [] (register-page))
+  (POST "/Logged" [request LoginUser LoginPass]
+        (login-handler request LoginUser LoginPass))
+  (POST "/login" [User email Pass]
+        (registerUser User email Pass))
+  (POST "/messages" [request Name Email Message]
+        (save-msg request Name Email Message)))
+
 
