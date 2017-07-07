@@ -9,6 +9,7 @@
             [digest :as dig]
             [cheshire.core :as json]
             [clojure.java.io :as io]
+            [environ.core :refer [env]]
             [clojure.string :as string]
             [guestbook.db.core :as d]
             [ring.util.response :refer [redirect]]
@@ -19,22 +20,24 @@
   (db/create-db
     (db/mysql {:db "ionut"
                :user "root"
-               :password "whitecityromania"
-               :host "172.17.0.3"
+               :password (env :db-pass)
+               :host "172.17.0.2"
                :port "3306"})))
 
 (db/default-connection debe)
 
 (defentity BIGBOI)
 (defentity Users)
+(defentity CS)
 
 (select BIGBOI)
 (select Users)
+(select CS)
 
 (def secret "mysecret")
 (def backend (backends/jws {:secret secret}))
 
-(defn get-connection [LoginUser] (println "Workingggg")
+(defn get-connection [LoginUser] 
   (select Users
           (fields :Username :Email)
           (where {:Username LoginUser})))
@@ -45,7 +48,7 @@
         user (select Users
                      (fields :id)
                      (where {:Username LoginUser :Password LoginPass}))
-        token (jwt/sign {:user (:id user)} secret)] (println request)
+        token (jwt/sign {:user (:id user)} secret)] 
     {:status 200
      :body (json/encode {:token token})
      :headers {:content-type "application/json"}})
@@ -62,10 +65,14 @@
   (insert BIGBOI (values {:name name :message message}))
   (home-page))
 
-(defn get-messages []
-  (select BIGBOI
-          (fields :name :message :id :hash)))
+(defn get-hash [hashed]
+  (sql-update BIGBOI (set-fields {:current hashed})))
 
+(defn get-messages [& hashed]
+  (get-hash hashed)
+  (select BIGBOI
+          (fields :name :message :id :hash :current)))       
+  
 (defn selector [id]
   (select BIGBOI
           (fields :message :id)
@@ -83,9 +90,7 @@
 
     (selmer.parser/render-file "login.html" {:test "test"})
     ))
-
-
-
+  
 (defn login-page []
   (selmer.parser/render-file "login.html" {:test "test"}))
 
@@ -93,17 +98,19 @@
   (selmer.parser/render-file "register.html" {:test "test"}))
 
 (defn message-page [& hashed]
-  (selmer.parser/render-file "messages.html" {:messages (get-messages)
-                                              :hash hashed}))
-
+  (selmer.parser/render-file "messages.html" {:messages (get-messages hashed)}))
+                                              
 (defn edit-page [id]
   (selmer.parser/render-file "edit.html" {:make (selector id)}))
 
-(defn save-msg [request Name Email Message] (println request)
+(defn save-msg [request Name Email Message]
+  (if-not (empty? Message)
   (let [hashed (dig/md5(string/lower-case(string/trim Email)))]
-    (insert BIGBOI (values {:name Name :message Message :hash hashed}))
-    (message-page hashed)))
-
+    (insert BIGBOI (values {:name Name :message Message :hash hashed }))
+    (message-page hashed))
+  (let [hashed (dig/md5(string/lower-case(string/trim Email)))] 
+    (message-page hashed))))
+  
 (defn editing [id update]
 
   (sql-update BIGBOI

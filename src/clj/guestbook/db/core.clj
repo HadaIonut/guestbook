@@ -11,16 +11,18 @@
 (def debe
   (db/create-db
     (db/mysql {:db "ionut"
-            :user (envi :db-user)
+            :user "root"
             :password "whitecityromania"
-            :host "172.17.0.3"
+            :host "172.17.0.2"
             :port "3306"})))
 
 (db/default-connection debe)
 
 (defentity BIGBOI)
+(defentity Users)
 
 (select BIGBOI)
+(select Users)
 
 (defn get-messages [] println "test")
 (defn save-message [{:keys [message]}]

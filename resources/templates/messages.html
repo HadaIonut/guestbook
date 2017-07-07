@@ -47,14 +47,14 @@
         padding: 0cm 0cm 0cm 1.5cm;
     }
 </style>
-    {{hash}}
+    {% for t in hash %} {{t.hash}} {% endfor %}
     <div class="jumbotron"> <h4> Messages left: </h4> </div>
     {% for m in messages %}
     {{m.hash}}
     <div class="single-message">
         <img height = "50" width = "50" src = "https://www.gravatar.com/avatar/{{m.hash}}" />  
          <b>{{m.name}}: </b> <br>
-        <p class = "msg">{{m.message}} {% ifequal m.check test %} <a href= "http://localhost:3000/messages/{{m.id}} " class="edit"> EDIT </a> {% endifequal %} </p>    
+        <p class = "msg">{{m.message}} {% ifequal m.hash m.current %} <a href= "http://localhost:3000/messages/{{m.id}} " class="edit"> EDIT </a> {% endifequal %} </p>    
     </div>
     {% endfor %}
 {% endblock %}

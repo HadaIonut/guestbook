@@ -3,21 +3,24 @@
 {% block content %}
     <div class = "jumbotron"> Hello {% for item in connected %} {{item.Username}} {% endfor %} </div>
     <form method="POST" action="/messages">
-    <h4><br> You can leave a special message here: <br></h4> 
+    <h4><br> You can leave a special message here: <br><br></h4> 
                     {% csrf-field %}
+                    Name:
             <input class = "form-control"
                    type = "text"
                    name = "Name"
                    value = {% for item in connected %} {{item.Username}} {% endfor %} /> <br>
+                   Email:
             <input class = "form-control"
                    type = "text"
                    name = "Email"
                    value =  {% for item in connected %} {{item.Email}} {% endfor %} />
             <br>
+            Message:  (Leave blank just to login)
             <input class = "form-control"
                     type = "text"
                     name = "Message"
-                    value = " "/>  <br> <br>
+                    value = ""/>  <br> <br>
             <input type="submit" class="btn btn-primary" value="Done" />
         </form>
 {% endblock %}
