@@ -52,8 +52,12 @@
     {:status 200
      :body (json/encode {:token token})
      :headers {:content-type "application/json"}})
+  (let [users (select Users (fields :Username :Password) (where {:Username LoginUser}))
+        exists? (empty? users)]
+  (if-not exists? 
   (selmer.parser/render-file "logged.html"
-                             {:connected (get-connection LoginUser)}))
+                             {:connected (get-connection LoginUser)})
+  (selmer.parser/render-file "login.html" {:test "test"}))))
 
 (defn home-page [& [name message errors]]
   (layout/render
