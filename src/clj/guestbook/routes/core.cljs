@@ -11,19 +11,6 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-; (def debe
-;   (db/create-db
-;     (db/mysql {:db "ionut"
-;                :user "root"
-;                :password (env :db-pass)
-;                :host "172.17.0.2"
-;                :port "3306"})))
-
-; (db/default-connection debe)
-
-; (defentity omDB)
-
-; (select omDB)
 
 (defonce app-state
   (atom
