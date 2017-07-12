@@ -1,0 +1,31 @@
+[0mCompiling "resources/public/js/compiled/guestbook.js" from ["src"]...[0m
+[36m----  Compiler Warning on   src/clj/guestbook/routes/core.cljs   line:84  column:39  ----[0m
+
+  [1mUse of undeclared Var om-tut.core/add-contact[0m
+
+  [36m80[0m  [36m            {:init-state state}))[0m
+  [36m81[0m  [36m        (dom/div nil[0m
+  [36m82[0m  [36m          (dom/input #js {:type "text" :ref "new-contact" :value (:text state)[0m
+  [36m83[0m  [36m                          :onChange #(handle-change % owner state)})[0m
+  [33m84[0m  [1m          (dom/button #js {:onClick #(add-contact data owner)} "Add contact"))))))[0m
+  [0m  [0m  [33m                                      ^--- Use of undeclared Var om-tut.core/add-contact[0m
+  [36m85[0m  [36m[0m
+  [36m86[0m  [36m(om/root contacts-view app-state[0m
+  [36m87[0m  [36m  {:target (. js/document (getElementById "contacts"))})[0m
+  [36m88[0m  [36m[0m
+  [36m89[0m  [36m(defn parse-contact [contact-str][0m
+
+[36m----  Compiler Warning : Please see src/clj/guestbook/routes/core.cljs  ----[0m
+[31mFailed to compile "resources/public/js/compiled/guestbook.js" in 1.039 seconds.[0m
+[36m----  Could not Read  src/clj/guestbook/routes/core.cljs   line:147  column:15  ----[0m
+
+  [1mUnmatched delimiter }[0m
+
+  [36m145[0m  [36m             ;; to pipe all the output to the repl[0m
+  [36m146[0m  [36m             ;; :server-logfile false[0m
+  [33m147[0m  [1m             }[0m
+  [0m   [0m  [33m              ^--- Unmatched delimiter }[0m
+  [36m148[0m  [36m[0m
+  [36m149[0m  [36m)[0m
+
+[36m----  Reader Error : Please see src/clj/guestbook/routes/core.cljs  ----[0m

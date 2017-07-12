@@ -42,13 +42,16 @@
           (fields :Username :Email)
           (where {:Username LoginUser})))
 
+(defn test-page []
+  (selmer.parser/render-file "index.html" {:test "test"}))
+
 (defn login-handler
   [request LoginUser LoginPass]
   (let [data (:form-params request)
         user (select Users
                      (fields :id)
                      (where {:Username LoginUser :Password LoginPass}))
-        token (jwt/sign {:user (:id user)} secret)] 
+        token (jwt/sign {:user (:id user)} secret)] (println token)
     {:status 200
      :body (json/encode {:token token})
      :headers {:content-type "application/json"}})
@@ -57,7 +60,7 @@
   (if-not exists? 
   (selmer.parser/render-file "logged.html"
                              {:connected (get-connection LoginUser)})
-  (selmer.parser/render-file "login.html" {:test "test"}))))
+  (selmer.parser/render-file "login.html" {:failed "Username or password combination not found"}))))
 
 (defn home-page [& [name message errors]]
   (layout/render
@@ -101,7 +104,7 @@
 (defn register-page []
   (selmer.parser/render-file "register.html" {:test "test"}))
 
-(defn message-page [& hashed]
+(defn message-page [& hashed] 
   (selmer.parser/render-file "messages.html" {:messages (get-messages hashed)}))
                                               
 (defn edit-page [id]
@@ -129,6 +132,7 @@
 
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (GET "/index" [] (test-page))
   (POST "/" [name message] (save-message name message))
   (GET "/messages" [] (message-page))
   (GET "/messages/:id" [id] (edit-page id))

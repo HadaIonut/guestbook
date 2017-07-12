@@ -1,7 +1,12 @@
 <title> Message editor </title>
 {% extends "base.html" %}
 {% block content %}
-
+<style>
+    .error {
+        padding: 0px 0px 0px 0px;
+        color: red;
+    }
+</style>
     <form method="POST" action="/Logged">
         <div class = "jumbotron">
             <h3> Log in to your account <h3> </div>
@@ -15,8 +20,9 @@
                             type = "text"
                             name = "LoginPass"
                             value = "Password "/>
-                            <br>
+        <div class="error" > <b> {{failed}} </b> </div>
+        
         <input type="submit" class="btn btn-primary" value="Log in" />
-        <a href = "http://localhost:3000/register"> Do you need an account? </a>
+        <a href = "http://localhost:3000/register"> Do you need an account? </a>        
     </form>
 {% endblock %}
