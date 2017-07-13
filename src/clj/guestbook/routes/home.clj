@@ -29,10 +29,15 @@
 (defentity BIGBOI)
 (defentity Users)
 (defentity CS)
+(defentity omDB)
 
 (select BIGBOI)
 (select Users)
 (select CS)
+(select omDB)
+
+(defn omSelector []
+  (select omDB (fields :first :last :middle :middleInitial)))
 
 (def secret "mysecret")
 (def backend (backends/jws {:secret secret}))

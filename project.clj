@@ -5,6 +5,7 @@
 
   :dependencies [[buddy/buddy-auth "1.4.1"]
                  [buddy "1.3.0"]
+                 [cljs-ajax "0.6.0"]
                  [clj-time "0.13.0"]
                  [cljsjs/react "15.4.2-1"]
                  [cljsjs/react-dom "15.4.2-1"]
@@ -62,7 +63,7 @@
 
 :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["src"]
+                :source-paths ["src-cljs"]
 
                 :figwheel {:on-jsload "guestbookcljs.core/on-js-reload"
                            :open-urls ["http://localhost:3449/index.html"]}
@@ -72,9 +73,10 @@
                            :output-to "resources/public/js/compiled/guestbook.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
+                           :optimizations :advanced
                            :preloads [devtools.preload]}}
                {:id "min"
-                :source-paths ["src"]
+                :source-paths ["src-cljs"]
                 :compiler {:output-to "resources/public/js/compiled/guestbook.js"
                            :main guestbookcljs.core
                            :optimizations :advanced
