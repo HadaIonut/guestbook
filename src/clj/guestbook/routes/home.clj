@@ -1,5 +1,6 @@
 (ns guestbook.routes.home
-  (:require [guestbook.layout :as layout]
+  (:require [ajax.core :as aj]
+            [guestbook.layout :as layout]
             [ring.util.http-response :as response]
             [korma.db :as db]
             [korma.core :refer :all :rename {update sql-update}]
@@ -12,7 +13,7 @@
             [environ.core :refer [env]]
             [clojure.string :as string]
             [guestbook.db.core :as d]
-            [ring.util.response :refer [redirect]]
+            [ring.util.response :refer [redirect response status]]
             [compojure.core :refer [defroutes GET POST]]
             [struct.core :as st]))
 
@@ -42,13 +43,13 @@
 (def secret "mysecret")
 (def backend (backends/jws {:secret secret}))
 
-(defn get-connection [LoginUser] 
+(defn get-connection [LoginUser]
   (select Users
           (fields :Username :Email)
           (where {:Username LoginUser})))
 
 (defn test-page []
-  (selmer.parser/render-file "index.html" {:test "test"}))
+    (selmer.parser/render-file "index.html" {:params "test"}))
 
 (defn login-handler
   [request LoginUser LoginPass]
@@ -56,16 +57,18 @@
         user (select Users
                      (fields :id)
                      (where {:Username LoginUser :Password LoginPass}))
-        token (jwt/sign {:user (:id user)} secret)] (println token)
+        token (jwt/sign {:user (:id user)} secret)]
     {:status 200
      :body (json/encode {:token token})
      :headers {:content-type "application/json"}})
-  (let [users (select Users (fields :Username :Password) (where {:Username LoginUser}))
+  (let [users (select Users (fields :Username :Password)
+    (where {:Username LoginUser}))
         exists? (empty? users)]
-  (if-not exists? 
+  (if-not exists?
   (selmer.parser/render-file "logged.html"
                              {:connected (get-connection LoginUser)})
-  (selmer.parser/render-file "login.html" {:failed "Username or password combination not found"}))))
+  (selmer.parser/render-file "login.html"
+    {:failed "Username or password combination not found"}))))
 
 (defn home-page [& [name message errors]]
   (layout/render
@@ -83,8 +86,8 @@
 (defn get-messages [& hashed]
   (get-hash hashed)
   (select BIGBOI
-          (fields :name :message :id :hash :current)))       
-  
+          (fields :name :message :id :hash :current)))
+
 (defn selector [id]
   (select BIGBOI
           (fields :message :id)
@@ -100,18 +103,17 @@
                                  :Password Pass
                                  :Email email})))
 
-    (selmer.parser/render-file "login.html" {:test "test"})
-    ))
-  
+    (selmer.parser/render-file "login.html" {:test "test"})))
+
 (defn login-page []
   (selmer.parser/render-file "login.html" {:test "test"}))
 
 (defn register-page []
   (selmer.parser/render-file "register.html" {:test "test"}))
 
-(defn message-page [& hashed] 
+(defn message-page [& hashed]
   (selmer.parser/render-file "messages.html" {:messages (get-messages hashed)}))
-                                              
+
 (defn edit-page [id]
   (selmer.parser/render-file "edit.html" {:make (selector id)}))
 
@@ -120,9 +122,9 @@
   (let [hashed (dig/md5(string/lower-case(string/trim Email)))]
     (insert BIGBOI (values {:name Name :message Message :hash hashed }))
     (message-page hashed))
-  (let [hashed (dig/md5(string/lower-case(string/trim Email)))] 
+  (let [hashed (dig/md5(string/lower-case(string/trim Email)))]
     (message-page hashed))))
-  
+
 (defn editing [id update]
 
   (sql-update BIGBOI
@@ -135,9 +137,14 @@
   (select BIGBOI
           (fields :id)))
 
+(defn save-message! [{:keys [params]}]
+    (println params)
+    (response {:status :success}))
+
 (defroutes home-routes
-  (GET "/" [] (home-page))
+  (POST "/index" request (save-message! request))
   (GET "/index" [] (test-page))
+  (GET "/" [] (home-page))
   (POST "/" [name message] (save-message name message))
   (GET "/messages" [] (message-page))
   (GET "/messages/:id" [id] (edit-page id))
@@ -150,5 +157,3 @@
         (registerUser User email Pass))
   (POST "/messages" [request Name Email Message]
         (save-msg request Name Email Message)))
-
-

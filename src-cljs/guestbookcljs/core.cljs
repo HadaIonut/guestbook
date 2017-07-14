@@ -1,6 +1,7 @@
 (ns guestbookcljs.core
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [om.core :as om :include-macros true]
+  (:require [ajax.core :refer [GET POST]]
+            [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [cljs.core.async :refer [put! chan <!]]
             [clojure.string :as string]))
@@ -11,10 +12,27 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
+(defn handler [response]
+  (.log js/console (str response)))
+
+(defn error-handler [{:keys [status status-text]}]
+  (.log js/console (str "something bad happened: " status " " status-text)))
+
+  (POST "/index"
+        {:headers {"Accept" "application/transit+json"}
+         :params {:message "Hello World"
+                  :user    "Bob"}
+         :handler handler
+         :error-handler error-handler})
+
 (defonce app-state
   (atom
     {:contacts
-     [{:first "Gica" :last "Bitdiddle" :email "benb@mit.edu"}
+     [{:first "Ghita" :last "Bitdiddle" :email "benb@mit.edu"}
+      {:first "Alyssa" :middle-initial "P" :last "Hacker" :email "aphacker@mit.edu"}
+      {:first "Eva" :middle "Lu" :last "Ator" :email "eval@mit.edu"}
+      {:first "Louis" :last "Reasoner" :email "prolog@mit.edu"}
+      {:first "Cy" :middle-initial "D" :last "Effect" :email "bugs@mit.edu"}
       {:first "Lem" :middle-initial "E" :last "Tweakit" :email "morebugs@mit.edu"}]}))
 
 (defn middle-name [{:keys [middle middle-initial]}]
