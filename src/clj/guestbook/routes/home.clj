@@ -38,7 +38,7 @@
 (select omDB)
 
 (defn omSelector []
-  (select omDB (fields :first :last :middle :middleInitial)))
+  (select BIGBOI (fields :name :message)))
 
 (def secret "mysecret")
 (def backend (backends/jws {:secret secret}))
@@ -141,11 +141,16 @@
     (println params)
     (response {:status :success}))
 
+(aj/POST "/send-message"
+    {:params {:message "Hello World"
+              :user    "Bob"}})
+
 (defroutes home-routes
   (POST "/index" request (save-message! request))
   (GET "/index" [] (test-page))
   (GET "/" [] (home-page))
   (POST "/" [name message] (save-message name message))
+  (GET "/send-info" [] (omSelector))
   (GET "/messages" [] (message-page))
   (GET "/messages/:id" [id] (edit-page id))
   (POST "/messages/:id" [id update] (editing id update))
